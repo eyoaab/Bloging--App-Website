@@ -18,7 +18,9 @@ app.use('/api/blogs', blogRoutes);
 
 // Connect to MongoDB
 mongoose
-  .connect(process.env.MONGO_URI, {})
+  .connect(process.env.MONGO_URI, {  serverSelectionTimeoutMS: 30000, 
+    socketTimeoutMS: 45000
+    })
   .then(() => console.log('MongoDB Connected'))
   .catch((err) => console.error(err));
 

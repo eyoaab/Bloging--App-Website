@@ -2,8 +2,12 @@ const Blog = require('../models/blogModel');
 
 // Get all blogs
 const getAllBlogs = async (req, res) => {
+  try{
   const blogs = await Blog.find().populate('author', '-password');
-  res.status(200).json(blogs);
+  res.status(200).json({'blogs': blogs});
+  }catch(error){
+    res.status(500).json({error:error})
+  }
 };
 
 // Create a new blog
@@ -19,9 +23,13 @@ const createBlog = async (req, res) => {
 
 // Get blog by ID
 const getBlogById = async (req, res) => {
+  try{
   const blog = await Blog.findById(req.params.id).populate('author', 'name username email');
   if (!blog) return res.status(404).json({ message: 'Blog not found' });
-  res.status(200).json(blog);
+  res.status(200).json(blog);}
+  catch(error){
+    res.status(500).json({'error':error})
+  }
 };
 
 // Update blog 

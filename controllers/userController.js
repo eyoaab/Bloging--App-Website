@@ -3,15 +3,15 @@ const jwt = require('jsonwebtoken');
 
 //register new user
 const registerUser = async (req, res) => {
-  const { name, username, email, password ,role} = req.body;
-
-  // Validate email format
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  if (!emailRegex.test(email)) {
-    return res.status(400).json({ message: 'Invalid email format' });
-  }
-
+  
   try {
+    const { name, username, email, password ,role} = req.body;
+  
+    // Validate email format
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ message: 'Invalid email format' });
+    }
     const existingUserByEmail = await User.findOne({ email });
     if (existingUserByEmail) {
       return res.status(400).json({ message: 'Email already in use, please try another one' });
@@ -155,10 +155,6 @@ const deleteUser = async (req, res) => {
     res.status(500).json({ error: 'Failed to delete user', details: error.message });
   }
 };
-
-
-
-
 
 module.exports = {
   registerUser,

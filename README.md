@@ -56,7 +56,7 @@ For detailed API documentation and usage examples, visit this two Postman docume
   4.start the server
   ```bash
   
-  npm start
+  node server.js
   
   ```
 ## Folder Structure
